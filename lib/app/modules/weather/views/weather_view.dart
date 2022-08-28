@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:weather_app/app/modules/weather/widget/loader_widget.dart';
+import 'package:weather_app/app/modules/weather/widget/response_error_widget.dart';
 
 import '../controllers/weather_controller.dart';
 
@@ -10,13 +12,24 @@ class WeatherView extends GetView<WeatherController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('WeatherView'),
+        title: const Text('Weather'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'WeatherView is working',
-          style: TextStyle(fontSize: 20),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          controller.fetchWeather();
+        },
+        child: controller.obx(
+          (weather) => SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Text(
+              weather.toString(),
+            ),
+          ),
+          onLoading: const LoaderWidget(),
+          onError: (error) => ResponseErrorWidget(
+            onRetry: () => controller.fetchWeather(),
+          ),
         ),
       ),
     );

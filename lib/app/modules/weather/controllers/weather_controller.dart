@@ -1,23 +1,31 @@
 import 'package:get/get.dart';
+import 'package:weather_app/app/modules/weather/model/weather/weather.dart';
+import 'package:weather_app/app/modules/weather/provider/weather_provider.dart';
 
-class WeatherController extends GetxController {
-  //TODO: Implement WeatherController
+class WeatherController extends GetxController with StateMixin<Weather> {
+  WeatherController({required this.provider});
+  final WeatherProvider provider;
 
-  final count = 0.obs;
   @override
   void onInit() {
+    fetchWeather();
     super.onInit();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  Future<void> fetchWeather() async {
+    change(null, status: RxStatus.loading());
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+    Response<dynamic> response = await provider.getWeather();
 
-  void increment() => count.value++;
+    try {
+      if (response.body['success'] == false) {
+        change(null, status: RxStatus.error());
+      } else {
+        Weather weather = Weather.fromJson(response.body);
+        change(weather, status: RxStatus.success());
+      }
+    } catch (e) {
+      change(null, status: RxStatus.error(e.toString()));
+    }
+  }
 }

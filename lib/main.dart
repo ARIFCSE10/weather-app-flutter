@@ -9,6 +9,7 @@ Future<void> main() async {
       title: "Weather",
       initialRoute: AppPages.initial,
       getPages: AppPages.routes,
+      debugShowCheckedModeBanner: false,
     ),
   );
 }
