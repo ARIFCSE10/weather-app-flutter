@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ResponseErrorWidget extends StatelessWidget {
-  const ResponseErrorWidget({Key? key, required this.onRetry})
+  const ResponseErrorWidget(
+      {Key? key, required this.onRetry, this.error = 'Something went wrong'})
       : super(key: key);
   final VoidCallback? onRetry;
+  final String error;
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +14,9 @@ class ResponseErrorWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
-            'Something went wrong',
-            style: TextStyle(color: Colors.redAccent, fontSize: 18),
+          Text(
+            error,
+            style: Theme.of(context).textTheme.headline6,
           ),
           const SizedBox(height: 16),
           ElevatedButton(

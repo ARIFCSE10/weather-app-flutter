@@ -6,18 +6,17 @@ class LoaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          CircularProgressIndicator.adaptive(),
-          SizedBox(height: 16),
-          Text(
-            'Fetching weather...',
-            style: TextStyle(color: Colors.black, fontSize: 18),
-          ),
-        ],
-      ),
-    );
+        child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: const [
+        CircularProgressIndicator.adaptive(),
+        SizedBox(height: 16),
+        Text(
+          'Fetching weather...',
+          style: TextStyle(color: Colors.black, fontSize: 18),
+        ),
+      ],
+    ));
   }
 }

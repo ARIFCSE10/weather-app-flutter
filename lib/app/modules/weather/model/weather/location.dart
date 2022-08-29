@@ -14,7 +14,7 @@ class Location with _$Location {
     String? lat,
     String? lon,
     @JsonKey(name: 'timezone_id') String? timezoneId,
-    String? localtime,
+    DateTime? localtime,
     @JsonKey(name: 'localtime_epoch') int? localtimeEpoch,
     @JsonKey(name: 'utc_offset') String? utcOffset,
   }) = _Location;

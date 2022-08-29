@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/app/modules/weather/views/orientation/landscape.dart';
 import 'package:weather_app/app/modules/weather/views/orientation/portrait.dart';
@@ -13,26 +13,35 @@ class WeatherView extends GetView<WeatherController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Weather'),
-        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          controller.fetchWeather();
-        },
-        child: controller.obx(
-          onLoading: const LoaderWidget(),
-          onError: (error) => ResponseErrorWidget(
-            onRetry: () => controller.fetchWeather(),
-          ),
-          (weather) => OrientationBuilder(
-            builder: ((context, orientation) => SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: (orientation == Orientation.portrait)
-                      ? const WeatherPortraitView()
-                      : const WeatherLandscapeView(),
-                )),
+      body: controller.obx(
+        onLoading: const LoaderWidget(),
+        onError: (error) => ResponseErrorWidget(
+          onRetry: () => controller.fetchWeather(),
+          error: error.toString(),
+        ),
+        (weather) => RefreshIndicator(
+          onRefresh: () async => await controller.fetchWeather(),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: OrientationBuilder(
+                  builder: ((context, _) =>
+                      (MediaQuery.of(context).orientation ==
+                              Orientation.portrait)
+                          ? WeatherPortraitView(
+                              weather: weather!,
+                            )
+                          : WeatherLandscapeView(
+                              weather: weather!,
+                            )),
+                ),
+              ),
+            ],
           ),
         ),
       ),

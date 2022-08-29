@@ -14,6 +14,9 @@ class WeatherController extends GetxController with StateMixin<Weather> {
 
   Future<void> fetchWeather() async {
     change(null, status: RxStatus.loading());
+    await Future.delayed(1.seconds);
+    // change(null, status: RxStatus.error('hello error'));
+    // change(Weather(), status: RxStatus.success());
 
     Response<dynamic> response = await provider.getWeather();
 
