@@ -1,10 +1,16 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/app/modules/weather/model/weather/weather.dart';
 import 'package:weather_app/app/modules/weather/provider/weather_provider.dart';
 
 class WeatherController extends GetxController with StateMixin<Weather> {
   WeatherController({required this.provider});
+  static WeatherController get to => Get.find();
   final WeatherProvider provider;
+  final TextEditingController countryTextController = TextEditingController();
+  final TextEditingController cityTextController = TextEditingController();
+  RxBool shouldCollectLocationFromIp = false.obs;
+  RxBool isMetric = true.obs;
 
   @override
   void onInit() {

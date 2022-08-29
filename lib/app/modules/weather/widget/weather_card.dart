@@ -16,7 +16,7 @@ class WeatherCard extends StatelessWidget {
         ? UnitOptions.m
         : UnitOptions.f;
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       color: Colors.blue.shade100,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 4,

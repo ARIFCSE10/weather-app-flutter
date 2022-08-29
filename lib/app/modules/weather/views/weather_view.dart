@@ -13,7 +13,6 @@ class WeatherView extends GetView<WeatherController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Weather'),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
@@ -34,10 +33,10 @@ class WeatherView extends GetView<WeatherController> {
                       (MediaQuery.of(context).orientation ==
                               Orientation.portrait)
                           ? WeatherPortraitView(
-                              weather: weather!,
+                              controller: controller,
                             )
                           : WeatherLandscapeView(
-                              weather: weather!,
+                              controller: controller,
                             )),
                 ),
               ),
