@@ -84,6 +84,14 @@ class WeatherCard extends StatelessWidget {
               child: ClipOval(
                 child: Image.network(
                   weather.current?.weatherIcons?.first ?? '',
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.error,
+                    color: Colors.red,
+                  ),
+                  loadingBuilder: (context, child, loadingProgress) =>
+                      loadingProgress == null
+                          ? child
+                          : const CircularProgressIndicator(),
                 ),
               ),
             ),

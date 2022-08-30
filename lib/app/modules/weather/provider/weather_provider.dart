@@ -12,14 +12,24 @@ class WeatherProvider extends GetConnect {
     super.onInit();
   }
 
-  Future<Response<dynamic>> getWeather(
-      {UnitOptions unit = UnitOptions.m}) async {
+  Future<Response<dynamic>> getWeather({
+    UnitOptions unit = UnitOptions.m,
+    String? city,
+    String? country,
+    bool shouldCollectLocationFromIp = true,
+  }) async {
+    Map<String, String> pathQuery = <String, String>{
+      'units': unit.name,
+    };
+    if (!shouldCollectLocationFromIp) {
+      pathQuery['query'] =
+          '${city ?? ''}${country?.isNotEmpty == true ? ',' : ''}${country ?? ''}';
+    }
     Response<dynamic> data = await get(
       UrlUtil.getPath(
         path: 'current',
-        pathQuery: <String, String>{
-          'units': unit.name,
-        },
+        pathQuery: pathQuery,
+        useDefaultQuery: shouldCollectLocationFromIp,
       ),
     );
     return data;
