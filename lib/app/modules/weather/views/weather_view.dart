@@ -23,15 +23,18 @@ class WeatherView extends GetView<WeatherController> {
           onRetry: () => controller.fetchWeather(),
           error: error.toString(),
         ),
-        (weather) => OrientationBuilder(
-          builder: ((context, _) =>
-              (MediaQuery.of(context).orientation == Orientation.portrait)
-                  ? WeatherPortraitView(
-                      controller: controller,
-                    )
-                  : WeatherLandscapeView(
-                      controller: controller,
-                    )),
+        (weather) => RefreshIndicator(
+          onRefresh: () async => await controller.fetchWeather(isReload: true),
+          child: OrientationBuilder(
+            builder: ((context, _) =>
+                (MediaQuery.of(context).orientation == Orientation.portrait)
+                    ? WeatherPortraitView(
+                        controller: controller,
+                      )
+                    : WeatherLandscapeView(
+                        controller: controller,
+                      )),
+          ),
         ),
       ),
     );

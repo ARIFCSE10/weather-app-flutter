@@ -28,11 +28,20 @@ class _SettingToggleState extends State<SettingToggle> {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: EdgeInsets.zero,
+      minVerticalPadding: 4,
+      dense: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(
+          color: Colors.grey.shade300,
+          width: 1,
+        ),
+      ),
       title: Padding(
         padding: const EdgeInsets.only(left: 8),
         child: Text(
           widget.title,
-          style: Theme.of(context).textTheme.titleLarge!,
+          style: Theme.of(context).textTheme.titleMedium!,
         ),
       ),
       onTap: () => setState(() {

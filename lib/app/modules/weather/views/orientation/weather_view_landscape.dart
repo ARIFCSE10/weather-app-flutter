@@ -13,25 +13,23 @@ class WeatherLandscapeView extends StatelessWidget {
   final WeatherController controller;
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: () async => await controller.fetchWeather(),
-      child: SafeArea(
-        child: SizedBox(
-          height: Get.height,
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  WeatherCard(weather: controller.state!, width: Get.height),
-                  SearchSettingWidget(
-                    controller: controller,
-                    width: Get.width / 3,
-                  )
-                ],
-              ),
+    return SafeArea(
+      child: SizedBox(
+        height: Get.height,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                WeatherCard(weather: controller.state!, width: Get.height),
+                SearchSettingWidget(
+                  controller: controller,
+                  width: Get.width / 3,
+                )
+              ],
             ),
           ),
         ),

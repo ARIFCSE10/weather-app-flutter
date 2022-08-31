@@ -27,27 +27,34 @@ class SearchSettingWidget extends StatelessWidget {
                     .textTheme
                     .titleLarge!
                     .copyWith(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
-            TextEditBox(
-              textController: controller.countryTextController,
-              hintText: 'Country',
-              isEnabled: controller.shouldCollectLocationFromIp.isFalse,
-              autofillHints: controller.countries
-                  .map((Country country) => country.name?.common ?? '')
-                  .toList(),
+            const SizedBox(height: 8),
+            SizedBox(
+              height: 36,
+              child: TextEditBox(
+                textController: controller.countryTextController,
+                hintText: 'Country',
+                isEnabled: controller.shouldCollectLocationFromIp.isFalse,
+                autofillHints: controller.countries
+                    .map((Country country) => country.name?.common ?? '')
+                    .toList(),
+              ),
             ),
             const SizedBox(height: 8),
-            TextEditBox(
-              textController: controller.cityTextController,
-              hintText: 'City',
-              isEnabled: controller.shouldCollectLocationFromIp.isFalse,
+            SizedBox(
+              height: 36,
+              child: TextEditBox(
+                textController: controller.cityTextController,
+                hintText: 'City',
+                isEnabled: controller.shouldCollectLocationFromIp.isFalse,
+              ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 4),
             SettingToggle(
                 isChecked: controller.shouldCollectLocationFromIp.value,
                 title: 'Collect location from IP',
                 onChange: () =>
                     controller.shouldCollectLocationFromIp.toggle()),
+            const SizedBox(height: 4),
             SettingToggle(
               isChecked: controller.isMetric.value,
               title: controller.isMetric.value ? 'Metric' : 'Imperial',
@@ -56,7 +63,21 @@ class SearchSettingWidget extends StatelessWidget {
             SizedBox(
               width: Get.width,
               child: ElevatedButton(
-                onPressed: () => controller.fetchWeather(),
+                onPressed: () async {
+                  if (controller.shouldCollectLocationFromIp.isTrue ||
+                      (controller.countryTextController.text.isNotEmpty &&
+                          controller.cityTextController.text.isNotEmpty)) {
+                    await controller.fetchWeather();
+                  } else {
+                    Get.snackbar(
+                      'Error',
+                      'Please fill in the fields',
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.redAccent.shade100,
+                      colorText: Colors.white,
+                    );
+                  }
+                },
                 child: const Text('Search'),
               ),
             ),

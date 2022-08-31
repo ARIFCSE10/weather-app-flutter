@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:weather_app/app/data/constants/app_url.dart';
-import 'package:weather_app/app/data/enums.dart';
+import 'package:weather_app/app/modules/weather/model/weather_request.dart';
 import 'package:weather_app/app/utils/url_util.dart';
 
 class WeatherProvider extends GetConnect {
@@ -13,23 +13,21 @@ class WeatherProvider extends GetConnect {
   }
 
   Future<Response<dynamic>> getWeather({
-    UnitOptions unit = UnitOptions.m,
-    String? city,
-    String? country,
-    bool shouldCollectLocationFromIp = true,
+    required WeatherRequest request,
   }) async {
     Map<String, String> pathQuery = <String, String>{
-      'units': unit.name,
+      'units': request.unit.name,
     };
-    if (!shouldCollectLocationFromIp) {
+    if (!request.shouldCollectLocationFromIp) {
       pathQuery['query'] =
-          '${city ?? ''}${country?.isNotEmpty == true ? ',' : ''}${country ?? ''}';
+          '${request.city}${request.country.isNotEmpty == true ? ',' : ''}${request.country}';
     }
+
     Response<dynamic> data = await get(
       UrlUtil.getPath(
         path: 'current',
         pathQuery: pathQuery,
-        useDefaultQuery: shouldCollectLocationFromIp,
+        useDefaultQuery: request.shouldCollectLocationFromIp,
       ),
     );
     return data;
