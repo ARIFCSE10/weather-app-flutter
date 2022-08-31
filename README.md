@@ -2,17 +2,30 @@
 
 ## Mohammed Badsha Alamgir
 
-A new Flutter project.
+Flutter weather app with Getx Architecture
 
-## Getting Started
+## How to Run
 
-This project is a starting point for a Flutter application.
+1. Clean
 
-A few resources to get you started if this is your first Flutter project:
+```
+flutter clean
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. Load pub dependencies
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+flutter pub get
+```
+
+3. Generate Model
+
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+4. Run project
+
+```
+flutter run
+```
