@@ -27,5 +27,5 @@ flutter pub run build_runner build --delete-conflicting-outputs
 4. Run project
 
 ```
-flutter run
+flutter run -t lib/main.dart
 ```
