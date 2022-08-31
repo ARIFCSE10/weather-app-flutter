@@ -10,11 +10,15 @@ import 'package:weather_app/app/modules/weather/provider/weather_provider.dart';
 class WeatherController extends GetxController with StateMixin<Weather> {
   WeatherController(
       {required this.weatherProvider, required this.countryProvider});
+
   static WeatherController get to => Get.find();
+
   final WeatherProvider weatherProvider;
   final CountryProvider countryProvider;
+
   final TextEditingController countryTextController = TextEditingController();
   final TextEditingController cityTextController = TextEditingController();
+
   final RxList<Country> countries = RxList<Country>();
 
   WeatherRequest? _lastRequest;
@@ -38,6 +42,7 @@ class WeatherController extends GetxController with StateMixin<Weather> {
 
   Future<void> fetchWeather({bool isReload = false}) async {
     change(null, status: RxStatus.loading());
+
     WeatherRequest request =
         isReload ? (_lastRequest ?? currentRequest) : currentRequest;
     try {

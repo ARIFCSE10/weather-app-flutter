@@ -8,11 +8,11 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const initial = Routes.WEATHER;
+  static const initial = Routes.weather;
 
   static final routes = [
     GetPage(
-      name: _Paths.WEATHER,
+      name: _Paths.weather,
       page: () => const WeatherView(),
       binding: WeatherBinding(),
     ),

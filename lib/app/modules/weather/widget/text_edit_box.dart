@@ -20,8 +20,10 @@ class TextEditBox extends StatelessWidget {
         MediaQuery.of(context).orientation == Orientation.portrait;
     return TextField(
       enabled: isEnabled,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.none,
       controller: textController,
+      enableInteractiveSelection: false,
+      readOnly: autofillHints.isEmpty ? false : true,
       onTap: autofillHints.isEmpty
           ? null
           : () {

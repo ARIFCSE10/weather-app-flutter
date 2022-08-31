@@ -6,7 +6,7 @@ class ResponseErrorWidget extends StatelessWidget {
       {Key? key, required this.onRetry, this.error = 'Something went wrong'})
       : super(key: key);
   final VoidCallback? onRetry;
-  final String error;
+  final String? error;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ResponseErrorWidget extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           Text(
-            error,
+            error ?? 'Something went wrong!',
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   color: Colors.redAccent.shade200,
                 ),
@@ -38,14 +38,14 @@ class ResponseErrorWidget extends StatelessWidget {
                   ),
                   elevation: 0,
                   minimumSize: const Size.fromHeight(48),
-                  primary: Colors.greenAccent.shade100,
+                  primary: Colors.greenAccent.shade200,
                   shadowColor: Colors.transparent),
               onPressed: onRetry,
               child: Text('Retry',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: Colors.blueGrey.shade600,
+                    color: Colors.blueGrey.shade700,
                   )),
             ),
           ),

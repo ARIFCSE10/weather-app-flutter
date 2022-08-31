@@ -21,14 +21,14 @@ class WeatherLandscapeView extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 WeatherCard(weather: controller.state!, width: Get.height),
                 SearchSettingWidget(
                   controller: controller,
                   width: Get.width / 3,
-                )
+                ),
               ],
             ),
           ),

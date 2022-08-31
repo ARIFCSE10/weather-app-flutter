@@ -34,7 +34,7 @@ class _SettingToggleState extends State<SettingToggle> {
         borderRadius: BorderRadius.circular(8),
         side: BorderSide(
           color: Colors.grey.shade300,
-          width: 1,
+          width: 1.5,
         ),
       ),
       title: Padding(

@@ -9,12 +9,12 @@ class LoaderWidget extends StatelessWidget {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      children: const [
-        CircularProgressIndicator.adaptive(),
-        SizedBox(height: 16),
+      children: [
+        const CircularProgressIndicator.adaptive(),
+        const SizedBox(height: 16),
         Text(
           'Fetching weather...',
-          style: TextStyle(color: Colors.black, fontSize: 18),
+          style: Theme.of(context).textTheme.headline6,
         ),
       ],
     ));

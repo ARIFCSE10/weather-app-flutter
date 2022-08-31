@@ -48,13 +48,13 @@ class SearchSettingWidget extends StatelessWidget {
                 isEnabled: controller.shouldCollectLocationFromIp.isFalse,
               ),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             SettingToggle(
                 isChecked: controller.shouldCollectLocationFromIp.value,
                 title: 'Collect location from IP',
                 onChange: () =>
                     controller.shouldCollectLocationFromIp.toggle()),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             SettingToggle(
               isChecked: controller.isMetric.value,
               title: controller.isMetric.value ? 'Metric' : 'Imperial',
@@ -75,6 +75,11 @@ class SearchSettingWidget extends StatelessWidget {
                       snackPosition: SnackPosition.BOTTOM,
                       backgroundColor: Colors.redAccent.shade100,
                       colorText: Colors.white,
+                      margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).padding.bottom + 16,
+                        left: 16,
+                        right: 16,
+                      ),
                     );
                   }
                 },

@@ -21,7 +21,7 @@ class WeatherView extends GetView<WeatherController> {
         onLoading: const LoaderWidget(),
         onError: (error) => ResponseErrorWidget(
           onRetry: () => controller.fetchWeather(),
-          error: error.toString(),
+          error: error,
         ),
         (weather) => RefreshIndicator(
           onRefresh: () async => await controller.fetchWeather(isReload: true),

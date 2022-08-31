@@ -3,7 +3,7 @@ import 'package:weather_app/app/data/constants/app_url.dart';
 class UrlUtil {
   UrlUtil._();
 
-  static String getPath({
+  static String getWeatherPath({
     required String path,
     Map<String, String>? pathQuery,
     bool useDefaultQuery = true,

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:weather_app/app/data/constants/app_url.dart';
 import 'package:weather_app/app/modules/weather/model/weather_request.dart';
-import 'package:weather_app/app/utils/url_util.dart';
+import 'package:weather_app/app/modules/weather/util/url_util.dart';
 
 class WeatherProvider extends GetConnect {
   static WeatherProvider get to => Get.find();
@@ -24,7 +24,7 @@ class WeatherProvider extends GetConnect {
     }
 
     Response<dynamic> data = await get(
-      UrlUtil.getPath(
+      UrlUtil.getWeatherPath(
         path: 'current',
         pathQuery: pathQuery,
         useDefaultQuery: request.shouldCollectLocationFromIp,

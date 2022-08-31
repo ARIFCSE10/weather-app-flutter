@@ -1,6 +1,7 @@
 class AppUrl {
   AppUrl._();
 
+  //Weather
   static const String weatherBaseUrl = 'http://api.weatherstack.com/';
 
   static const String accessKeyValue = '6fdf1ce4b2402cb765709373d760bcbe';
