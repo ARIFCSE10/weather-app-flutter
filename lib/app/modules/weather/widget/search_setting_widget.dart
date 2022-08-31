@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/app/modules/weather/controllers/weather_controller.dart';
+import 'package:weather_app/app/modules/weather/model/country/country.dart';
 import 'package:weather_app/app/modules/weather/widget/setting_toggle.dart';
 import 'package:weather_app/app/modules/weather/widget/text_edit_box.dart';
 
@@ -31,6 +32,9 @@ class SearchSettingWidget extends StatelessWidget {
               textController: controller.countryTextController,
               hintText: 'Country',
               isEnabled: controller.shouldCollectLocationFromIp.isFalse,
+              autofillHints: controller.countries
+                  .map((Country country) => country.name?.common ?? '')
+                  .toList(),
             ),
             const SizedBox(height: 8),
             TextEditBox(

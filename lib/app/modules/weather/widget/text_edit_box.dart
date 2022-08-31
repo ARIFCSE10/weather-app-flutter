@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TextEditBox extends StatefulWidget {
   const TextEditBox({
@@ -6,16 +7,25 @@ class TextEditBox extends StatefulWidget {
     required this.textController,
     required this.hintText,
     this.isEnabled = true,
+    this.autofillHints = const [],
   }) : super(key: key);
   final TextEditingController textController;
   final String hintText;
   final bool isEnabled;
+  final List<String> autofillHints;
 
   @override
   State<TextEditBox> createState() => _TextEditBoxState();
 }
 
 class _TextEditBoxState extends State<TextEditBox> {
+  late final List<String> autofillHints;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   String? error;
   @override
   Widget build(BuildContext context) {
@@ -32,7 +42,38 @@ class _TextEditBoxState extends State<TextEditBox> {
           }
         });
       },
+      onTap: widget.autofillHints.isEmpty
+          ? null
+          : () {
+              Get.bottomSheet(
+                ListView.builder(
+                  itemCount: widget.autofillHints.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(
+                        widget.autofillHints[index],
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      onTap: () {
+                        widget.textController.text =
+                            widget.autofillHints[index];
+                        Get.back();
+                      },
+                    );
+                  },
+                ),
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                isScrollControlled: false,
+                enableDrag: false,
+                ignoreSafeArea: false,
+              );
+            },
       maxLines: 1,
+      showCursor: widget.autofillHints.isEmpty ? true : false,
       decoration: InputDecoration(
         prefixIcon: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),

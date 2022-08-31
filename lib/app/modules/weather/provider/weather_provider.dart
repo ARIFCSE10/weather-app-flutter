@@ -8,7 +8,7 @@ class WeatherProvider extends GetConnect {
 
   @override
   void onInit() {
-    httpClient.baseUrl = AppUrl.baseUrl;
+    httpClient.baseUrl = AppUrl.weatherBaseUrl;
     super.onInit();
   }
 

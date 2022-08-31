@@ -69,7 +69,7 @@ class WeatherCard extends StatelessWidget {
                           .copyWith(color: Colors.black54),
                     ),
                     Text(
-                      weather.current?.weatherDescriptions?.first ?? '- -',
+                      'Feels like ${weather.current?.feelslike ?? 0}${weather.request?.unit == UnitOptions.m.name ? '°C' : '°F'}',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -93,6 +93,17 @@ class WeatherCard extends StatelessWidget {
                           ? child
                           : const CircularProgressIndicator(),
                 ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                weather.current?.weatherDescriptions?.first ?? '- -',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: Colors.blueGrey.shade700,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Padding(

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/app/data/enums.dart';
+import 'package:weather_app/app/modules/weather/model/country/country.dart';
 import 'package:weather_app/app/modules/weather/model/weather/weather.dart';
+import 'package:weather_app/app/modules/weather/provider/country_provider.dart';
 import 'package:weather_app/app/modules/weather/provider/weather_provider.dart';
 
 class WeatherController extends GetxController with StateMixin<Weather> {
-  WeatherController({required this.provider});
+  WeatherController(
+      {required this.weatherProvider, required this.countryProvider});
   static WeatherController get to => Get.find();
-  final WeatherProvider provider;
+  final WeatherProvider weatherProvider;
+  final CountryProvider countryProvider;
   final TextEditingController countryTextController = TextEditingController();
   final TextEditingController cityTextController = TextEditingController();
+  final RxList<Country> countries = RxList<Country>();
 
   RxBool shouldCollectLocationFromIp = true.obs;
   RxBool isMetric = true.obs;
@@ -18,6 +23,7 @@ class WeatherController extends GetxController with StateMixin<Weather> {
   @override
   void onInit() {
     fetchWeather();
+    fetchCountries();
     super.onInit();
   }
 
@@ -25,10 +31,11 @@ class WeatherController extends GetxController with StateMixin<Weather> {
     change(null, status: RxStatus.loading());
     await Future.delayed(1.seconds);
     // change(null, status: RxStatus.error('Something went wrong'));
-    change(Weather(), status: RxStatus.success());
+    // change(Weather(), status: RxStatus.success());
+    // return;
 
     try {
-      Response<dynamic> response = await provider.getWeather(
+      Response<dynamic> response = await weatherProvider.getWeather(
         unit: isMetric.value ? UnitOptions.m : UnitOptions.f,
         city: cityTextController.text.trim(),
         country: countryTextController.text.trim(),
@@ -44,5 +51,11 @@ class WeatherController extends GetxController with StateMixin<Weather> {
     } catch (e) {
       change(null, status: RxStatus.error(e.toString()));
     }
+  }
+
+  Future<void> fetchCountries() async {
+    countries.value = await countryProvider.getCountries();
+    countries
+        .sort((a, b) => a.name?.common?.compareTo(b.name?.common ?? '') ?? 0);
   }
 }
