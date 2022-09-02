@@ -29,3 +29,13 @@ flutter pub run build_runner build --delete-conflicting-outputs
 ```
 flutter run -t lib/main.dart
 ```
+
+## App Preview
+
+### Portrait
+
+![text](preview/portrait.gif)
+
+### Landscape
+
+![text](preview/landscape.gif)
